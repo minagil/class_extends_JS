@@ -1,0 +1,1 @@
+# class_extends_JS
