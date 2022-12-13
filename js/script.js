@@ -34,4 +34,30 @@ Employee.prototype.getPosition = function(){
 }
 
 var gomu = new Employee('고무',30,'CEO');
-console.dir(gomu);
+// console.dir(gomu);
+
+/* 상속을 할 때 일일이 코드를 구현한다면 너무 귀찮은 일. 그래서 함수로 처리 */
+var inherit = (function(){
+  var F = function() {}
+  return function(Child, Parent){
+    F.prototype = Parent.prototype;
+    Child.prototype = new F();
+    Child.prototype.constructor = Child;
+    Child._super = Parent.prototype;
+  }
+})();
+
+function Shape(){
+  Shape.prototype.name = 'Shape';
+  Shape.prototype.toString = function(){
+    return this.name;
+  }
+}
+
+function TwoDShape() {}
+inherit(TwoDShape, Shape);
+TwoDShape.prototype.name = '2DShape';
+
+const td = new TwoDShape();
+console.log(td.name);
+
